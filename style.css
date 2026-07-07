@@ -1,19 +1,16 @@
 :root {
-  --bg: #faf7f2;
-  --ink: #1c1a17;
-  --muted: #6b6459;
-  --accent: #c8663c;
-  --line: #e7e0d5;
-  --maxw: 42rem;
-}
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #17140f;
-    --ink: #f2ede4;
-    --muted: #a79f92;
-    --accent: #e0895f;
-    --line: #2c2820;
-  }
+  /* Palette drawn from the game's woodcut / two-tone identity */
+  --bg: #161320;          /* screen ground */
+  --surface: #1e1a2c;     /* raised panel */
+  --ink: #f4efe6;         /* foreground ink */
+  --muted: #a29cb3;       /* secondary text */
+  --line: #2a2540;        /* hairlines */
+  --player: #59a6ff;      /* accent (player blue) */
+  --enemy: #ff6b57;       /* accent (enemy red) */
+  --link: #7db6ff;
+  --maxw: 44rem;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
@@ -21,49 +18,70 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font: 400 18px/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font: 400 18px/1.7 var(--sans);
+  -webkit-font-smoothing: antialiased;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-a { color: var(--accent); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a { color: var(--link); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
 
-/* Landing hero */
+/* Brand mark: two dots, player vs enemy */
+.mark { display: inline-flex; gap: 0.5rem; align-items: center; }
+.mark span { width: 0.6rem; height: 0.6rem; border-radius: 50%; display: block; }
+.mark .p { background: var(--player); }
+.mark .e { background: var(--enemy); }
+
+/* ---- Landing hero ---- */
 .hero {
   flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 1.5rem;
+  padding: 5rem 1.5rem;
   text-align: center;
 }
 .wrap { max-width: var(--maxw); }
+.hero .mark { margin-bottom: 2.25rem; }
 .wordmark {
-  font-size: clamp(3rem, 12vw, 6rem);
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: clamp(3.25rem, 11vw, 5.5rem);
   line-height: 1;
-  letter-spacing: -0.03em;
-  margin: 0 0 1rem;
-  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.25rem;
 }
-.tagline { font-size: clamp(1.1rem, 3.5vw, 1.5rem); color: var(--muted); margin: 0 0 2rem; }
-.soon { color: var(--muted); }
+.tagline {
+  font-size: clamp(1.15rem, 3.2vw, 1.5rem);
+  color: var(--ink);
+  margin: 0 auto 0.75rem;
+  max-width: 32rem;
+}
+.sub { color: var(--muted); margin: 0 auto 2.5rem; max-width: 30rem; }
+.contact { color: var(--muted); font-size: 0.98rem; }
 
-/* Content pages */
-.page { flex: 1; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 3.5rem 1.5rem; }
-.page h1 { font-size: 2rem; letter-spacing: -0.02em; margin: 0 0 0.25rem; }
+/* ---- Content pages ---- */
+.page { flex: 1; width: 100%; max-width: var(--maxw); margin: 0 auto; padding: 4rem 1.5rem 3rem; }
+.back { display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 2.5rem; color: var(--muted); font-size: 0.95rem; }
+.page h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(2rem, 6vw, 2.6rem); letter-spacing: -0.02em; margin: 0 0 0.4rem; }
 .page .updated { color: var(--muted); font-size: 0.9rem; margin: 0 0 2.5rem; }
-.page h2 { font-size: 1.25rem; margin: 2.25rem 0 0.5rem; }
+.page .lede { font-size: 1.15rem; }
+.page h2 { font-size: 1.2rem; letter-spacing: -0.01em; margin: 2.5rem 0 0.6rem; }
 .page p, .page li { color: var(--ink); }
-.page ul { padding-left: 1.25rem; }
-.back { display: inline-block; margin-bottom: 2rem; font-size: 0.95rem; }
+.page ul { padding-left: 1.2rem; }
+.page li { margin: 0.35rem 0; }
+.page strong { color: var(--ink); }
+hr.rule { border: 0; border-top: 1px solid var(--line); margin: 2.5rem 0; }
 
-/* Footer */
+/* ---- Footer ---- */
 .site-footer {
   border-top: 1px solid var(--line);
-  padding: 1.75rem 1.5rem;
+  padding: 2rem 1.5rem;
   text-align: center;
 }
-.site-footer nav { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.site-footer .mark { margin-bottom: 1rem; }
+.site-footer nav { display: flex; gap: 1.75rem; justify-content: center; flex-wrap: wrap; margin-bottom: 0.9rem; }
 .site-footer nav a { color: var(--muted); font-size: 0.95rem; }
+.site-footer nav a:hover { color: var(--ink); }
 .legal { color: var(--muted); font-size: 0.85rem; margin: 0; }
