@@ -41,8 +41,8 @@ body {
   padding: clamp(1.5rem, 4.5vw, 3.25rem);
   color: var(--green);
   text-shadow: 0 0 5px var(--glow);
-  border-radius: clamp(1.6rem, 3.4vw, 2.6rem);
-  border: 1px solid rgba(77, 255, 112, 0.16);
+  /* bezier squircle tube shape (see #crt clip path in the HTML) */
+  clip-path: url(#crt);
   background-color: var(--bg);
   background-image:
     /* center bulge: a soft lit swell toward the viewer */
@@ -52,12 +52,13 @@ body {
       rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 1px,
       rgba(0, 0, 0, 0.30) 2px, rgba(0, 0, 0, 0.30) 3px);
   box-shadow:
-    0 0 0 9px #05080b,                               /* bezel frame */
-    0 0 0 10px rgba(77, 255, 112, 0.05),             /* faint rim light on the bezel */
-    0 34px 90px rgba(0, 0, 0, 0.85),                 /* the monitor sits in the room */
     inset 0 0 130px 26px rgba(0, 0, 0, 0.55),        /* interior vignette: curved-glass falloff */
     inset 0 0 34px 3px rgba(77, 255, 112, 0.06),     /* green edge glow */
     inset 0 22px 60px -30px rgba(200, 255, 215, 0.14); /* top glass highlight */
+  /* drop-shadow follows the clipped squircle, unlike box-shadow */
+  filter:
+    drop-shadow(0 0 1.5px rgba(77, 255, 112, 0.35))  /* green rim tracing the curve */
+    drop-shadow(0 30px 60px rgba(0, 0, 0, 0.85));    /* depth in the room */
   animation: flicker 6s infinite;
 }
 .terminal::-webkit-scrollbar { display: none; }
